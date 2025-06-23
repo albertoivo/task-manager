@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+alembic
+pytest
+httpx
+python-dotenv
+redis
+fastapi-limiter
