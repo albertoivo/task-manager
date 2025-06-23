@@ -38,8 +38,6 @@ Criar uma API RESTful (usando **FastAPI**) que permita aos usuários:
 * **Alembic** → Migrações de banco de dados.
 * **Pytest** → Testes unitários e de integração.
 * **Docker** → Containerizar a aplicação (opcional, mas recomendado).
-* **JWT Authentication (OAuth2 Password Flow)** → Reaproveite da sua API anterior.
-* **Rate Limiting (FastAPI Limiter ou Middleware customizado)** → Para proteger endpoints.
 * **Logging estruturado (JSON logs ou padrão Python logging)** → Para produção.
 
 ---
