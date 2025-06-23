@@ -1,8 +1,8 @@
-## 🚀 Projeto sugerido: **"Task Manager API" – Gerenciador de Tarefas com Prioridade e Agendamentos"**
+# 🚀 "Task Manager API" – Gerenciador de Tarefas com Prioridade e Agendamentos
 
 ---
 
-### 🎯 **Objetivo:**
+### 🎯 Objetivo:
 
 Criar uma API RESTful (usando **FastAPI**) que permita aos usuários:
 
@@ -14,7 +14,7 @@ Criar uma API RESTful (usando **FastAPI**) que permita aos usuários:
 
 ---
 
-### ✅ **Motivos para escolher esse projeto:**
+### ✅ Motivos para escolher esse projeto:
 
 1. **Modelagem de domínio um pouco mais rica que um simples CRUD** (tem estados, prioridades, agendamentos...).
 2. Permite aplicar conceitos como:
@@ -28,7 +28,7 @@ Criar uma API RESTful (usando **FastAPI**) que permita aos usuários:
 
 ---
 
-### 🛠️ **Tecnologias e boas práticas recomendadas:**
+### 🛠️ Tecnologias e boas práticas recomendadas:
 
 * **FastAPI** → API layer.
 * **Pydantic** → Modelagem de schemas / validações.
@@ -42,7 +42,7 @@ Criar uma API RESTful (usando **FastAPI**) que permita aos usuários:
 
 ---
 
-### 📋 **Requisitos detalhados do projeto:**
+### 📋 Requisitos detalhados do projeto:
 
 #### Endpoints principais:
 
@@ -72,8 +72,3 @@ Criar uma API RESTful (usando **FastAPI**) que permita aos usuários:
 * Criar filtros dinâmicos e paginação.
 * Testar tarefas assíncronas.
 * Configurar **docker-compose** com Redis + Banco + App (se quiser dar um passo a mais).
-
----
-
-👉 Se quiser, posso te entregar um **esqueleto de projeto inicial (estrutura de pastas + Dockerfile + requirements.txt)** para já começar. Quer?
-
