@@ -8,3 +8,7 @@ httpx
 python-dotenv
 redis
 fastapi-limiter
+black
+flake8
+autoflake
+isort
