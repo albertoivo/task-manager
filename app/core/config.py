@@ -26,7 +26,6 @@ class Settings(BaseSettings):
 settings = Settings()
 
 
-# Funções utilitárias
 def is_production() -> bool:
     return settings.environment == Environment.PRODUCTION
 
