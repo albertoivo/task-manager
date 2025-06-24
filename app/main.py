@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-app = FastAPI()
+app = FastAPI(prefix="/api/v1")
 
 @app.get("/")
 def home():
