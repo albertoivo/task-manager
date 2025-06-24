@@ -1,4 +1,4 @@
-# 🚀 "Task Manager API" – Gerenciador de Tarefas com Prioridade e Agendamentos
+## 🚀 Task Manager API – Gerenciador de Tarefas com Prioridade e Agendamentos
 
 ---
 
@@ -32,13 +32,13 @@ Criar uma API RESTful (usando **FastAPI**) que permita aos usuários:
 
 * **FastAPI** → API layer.
 * **Pydantic** → Modelagem de schemas / validações.
-* **SQLModel** ou **SQLAlchemy** → ORM + Persistência.
+* **SQLAlchemy** → ORM + Persistência.
 * **SQLite ou PostgreSQL** → Banco de dados.
 * **Redis** → Cache (para GET de tarefas) e filas de background jobs (se quiser ir além, usar **Celery**).
 * **Alembic** → Migrações de banco de dados.
 * **Pytest** → Testes unitários e de integração.
 * **Docker** → Containerizar a aplicação (opcional, mas recomendado).
-* **Logging estruturado (JSON logs ou padrão Python logging)** → Para produção.
+* **Logging estruturado (Python logging)** → Para produção.
 
 ---
 
