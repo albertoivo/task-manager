@@ -1,3 +1,4 @@
+import os
 from enum import Enum
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -20,6 +21,8 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
+DATABASE_URL=os.getenv("DATABASE_URL")
 
 
 def is_production() -> bool:

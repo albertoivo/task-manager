@@ -21,9 +21,6 @@ else:
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# create all tables in the database
-Base.metadata.create_all(bind=engine)
-
 
 def get_db() -> Generator[session.Session, None, None]:
     """Dependency to get a database session."""
