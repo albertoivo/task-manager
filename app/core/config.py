@@ -1,7 +1,6 @@
-import os
 from enum import Enum
 
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Environment(str, Enum):
@@ -12,15 +11,12 @@ class Environment(str, Enum):
 
 
 class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env")
+
     app_name: str = "Task Manager API"
     redis_url: str = "redis://localhost"
-    environment: Environment = os.getenv(
-        "ENVIRONMENT", Environment.DEVELOPMENT.value
-    ).lower()
+    environment: Environment = Environment.DEVELOPMENT
     debug: bool = True
-
-    class Config:
-        env_file = ".env"
 
 
 settings = Settings()

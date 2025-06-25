@@ -32,11 +32,10 @@ class Task(TaskBase):
     created_at: str
     updated_at: str
 
-    model_config = ConfigDict(from_attributes=True)
-
-    class Config:
-        orm_mode = True
-        use_enum_values = True
-        anystr_strip_whitespace = True
-        min_anystr_length = 1
-        max_anystr_length = 500
+    model_config = ConfigDict(
+        from_attributes=True,
+        use_enum_values=True,
+        str_strip_whitespace=True,
+        str_min_length=1,
+        str_max_length=500,
+    )

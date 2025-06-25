@@ -10,13 +10,17 @@ from .enums import TaskPriority, TaskStatus
 class Task(Base):
     __tablename__ = "tasks"
 
+    # Criar as listas de valores fora do f-string
+    _status_values = ', '.join([f"'{status.value}'" for status in TaskStatus])
+    _priority_values = ', '.join([f"'{priority.value}'" for priority in TaskPriority])
+
     __table_args__ = (
         CheckConstraint(
-            f"status IN ({', '.join([f"'{status.value}'" for status in TaskStatus])})",
+            f"status IN ({_status_values})",
             name="check_status_values",
         ),
         CheckConstraint(
-            f"priority IN ({', '.join([f"'{priority.value}'" for priority in TaskPriority])})",
+            f"priority IN ({_priority_values})",
             name="check_priority_values",
         ),
     )
