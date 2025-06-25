@@ -1,5 +1,5 @@
-from .config import (Environment, is_debug, is_development, is_production,
-                     is_staging, is_testing, DATABASE_URL, settings)
+from .config import (DATABASE_URL, Environment, is_debug, is_development,
+                     is_production, is_staging, is_testing, settings)
 
 __all__ = [
     "settings",

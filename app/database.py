@@ -5,8 +5,6 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import session, sessionmaker
 
-from app.models.base import Base
-
 load_dotenv()
 
 if os.getenv("TESTING"):

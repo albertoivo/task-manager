@@ -22,7 +22,7 @@ class Settings(BaseSettings):
 
 settings = Settings()
 
-DATABASE_URL=os.getenv("DATABASE_URL")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 
 def is_production() -> bool:
