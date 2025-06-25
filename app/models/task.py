@@ -11,8 +11,8 @@ class Task(Base):
     __tablename__ = "tasks"
 
     # Criar as listas de valores fora do f-string
-    _status_values = ', '.join([f"'{status.value}'" for status in TaskStatus])
-    _priority_values = ', '.join([f"'{priority.value}'" for priority in TaskPriority])
+    _status_values = ", ".join([f"'{status.value}'" for status in TaskStatus])
+    _priority_values = ", ".join([f"'{priority.value}'" for priority in TaskPriority])
 
     __table_args__ = (
         CheckConstraint(

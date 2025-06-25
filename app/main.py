@@ -1,14 +1,12 @@
 from fastapi import Depends, FastAPI
-from sqlalchemy.orm import Session
 from sqlalchemy import text
+from sqlalchemy.orm import Session
 
 from app import __description__, __title__, __version__
 from app.api import task
-from app.database import get_db
-
 from app.core import settings
-
 from app.core.logging import setup_logging
+from app.database import get_db
 
 logger = setup_logging()
 
@@ -45,11 +43,11 @@ def health_check(db: Session = Depends(get_db)):
 def version():
     return {"version": __version__, "description": __description__, "title": __title__}
 
+
 @app.get("/environment", tags=["Home"], summary="Environment Variables")
 def environment():
     return {
         "app_name": settings.app_name,
         "environment": settings.environment,
-        "debug": settings.debug
+        "debug": settings.debug,
     }
-    

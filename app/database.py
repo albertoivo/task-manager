@@ -18,7 +18,7 @@ if os.getenv("TESTING"):
 else:
     DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./tasks.db")
     engine = create_engine(DATABASE_URL)
-    
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # create all tables in the database
