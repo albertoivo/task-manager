@@ -20,6 +20,18 @@ class TaskBase(BaseModel):
             raise ValueError("Title cannot be empty")
         return value.strip()
 
+    @field_validator("status")
+    def validate_status(cls, value: TaskStatus) -> TaskStatus:
+        if value not in TaskStatus:
+            raise ValueError(f"Invalid status: {value}")
+        return value
+
+    @field_validator("priority")
+    def validate_priority(cls, value: TaskPriority) -> TaskPriority:
+        if value not in TaskPriority:
+            raise ValueError(f"Invalid priority: {value}")
+        return value
+
 
 class TaskCreate(TaskBase):
     pass
