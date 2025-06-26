@@ -12,7 +12,8 @@ import pytest
 from fastapi.testclient import TestClient
 
 # Agora importamos o engine e a Base do módulo que já sabe sobre o ambiente de teste
-from app.database import Base, engine
+from app.models.base import Base
+from app.database import engine
 from app.main import app
 
 

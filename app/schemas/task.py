@@ -1,3 +1,5 @@
+from datetime import datetime
+from typing import Optional
 from pydantic import BaseModel, ConfigDict, field_validator
 
 from app.models.enums import TaskPriority, TaskStatus
@@ -5,12 +7,11 @@ from app.models.enums import TaskPriority, TaskStatus
 
 class TaskBase(BaseModel):
     title: str
-    description: str | None = None
+    description: Optional[str] = None
     status: TaskStatus = TaskStatus.PENDING
     priority: TaskPriority = TaskPriority.MEDIUM
-    deadline: str | None = None
-    assigned_to: str | None = None
-    tags: list[str] | None = None
+    due_date: Optional[datetime] = None
+    assigned_to: Optional[str] = None
 
     @field_validator("title")
     def validate_title(cls, value: str) -> str:
@@ -23,14 +24,19 @@ class TaskCreate(TaskBase):
     pass
 
 
-class TaskUpdate(TaskBase):
-    pass
+class TaskUpdate(BaseModel):
+    title: Optional[str] = None
+    description: Optional[str] = None
+    status: Optional[TaskStatus] = None
+    priority: Optional[TaskPriority] = None
+    due_date: Optional[datetime] = None
+    assigned_to: Optional[str] = None
 
 
 class Task(TaskBase):
     id: int
-    created_at: str
-    updated_at: str
+    created_at: datetime
+    updated_at: datetime
 
     model_config = ConfigDict(
         from_attributes=True,

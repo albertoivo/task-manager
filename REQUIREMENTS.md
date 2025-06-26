@@ -57,7 +57,7 @@ Criar uma API RESTful (usando **FastAPI**) que permita aos usuários:
 
 #### Funcionalidades adicionais:
 
-* **Filtros por status (pending/completed), prioridade e deadline**
+* **Filtros por status (pending/completed), prioridade e duo date**
 * **Cache para GET /tasks**
 * **Notificação simulada via background task antes do vencimento (ex: 1 hora antes)**
 * **Autenticação com JWT (reuso da estrutura anterior)**
