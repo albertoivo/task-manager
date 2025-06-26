@@ -4,8 +4,8 @@ from typing import List, Optional
 from sqlalchemy import and_, or_
 from sqlalchemy.orm import Session
 
+from app.models.enums import TaskPriority, TaskStatus
 from app.models.task import Task
-from app.models.enums import TaskStatus, TaskPriority
 from app.schemas.task import TaskCreate, TaskUpdate
 
 
@@ -66,13 +66,13 @@ class TaskServices:
         # Usar apenas a data (sem horário) para comparação
         today = datetime.now().date()
         today_start = datetime.combine(today, datetime.min.time())  # 00:00:00 de hoje
-        
+
         return (
             self.db.query(Task)
             .filter(
                 and_(
                     Task.due_date < today_start,  # Antes de hoje (00:00:00)
-                    Task.status != TaskStatus.COMPLETED.value
+                    Task.status != TaskStatus.COMPLETED.value,
                 )
             )
             .all()
@@ -87,7 +87,7 @@ class TaskServices:
             .filter(
                 and_(
                     Task.due_date.between(now, future_date),
-                    Task.status != TaskStatus.COMPLETED.value
+                    Task.status != TaskStatus.COMPLETED.value,
                 )
             )
             .all()
@@ -101,26 +101,25 @@ class TaskServices:
             .filter(
                 and_(
                     Task.due_date >= datetime.combine(today, datetime.min.time()),
-                    Task.due_date < datetime.combine(today + timedelta(days=1), datetime.min.time()),
-                    Task.status != TaskStatus.COMPLETED.value
+                    Task.due_date
+                    < datetime.combine(today + timedelta(days=1), datetime.min.time()),
+                    Task.status != TaskStatus.COMPLETED.value,
                 )
             )
             .all()
         )
 
     def filter_tasks_by_date_range(
-        self, 
-        start_date: Optional[datetime] = None, 
-        end_date: Optional[datetime] = None
+        self, start_date: Optional[datetime] = None, end_date: Optional[datetime] = None
     ) -> List[Task]:
         """Filter tasks by date range."""
         query = self.db.query(Task)
-        
+
         if start_date:
             query = query.filter(Task.due_date >= start_date)
         if end_date:
             query = query.filter(Task.due_date <= end_date)
-            
+
         return query.all()
 
     def search_tasks(self, search_term: str) -> List[Task]:
@@ -131,7 +130,7 @@ class TaskServices:
             .filter(
                 or_(
                     Task.title.ilike(search_pattern),
-                    Task.description.ilike(search_pattern)
+                    Task.description.ilike(search_pattern),
                 )
             )
             .all()
@@ -144,11 +143,11 @@ class TaskServices:
         assigned_to: Optional[str] = None,
         start_date: Optional[datetime] = None,
         end_date: Optional[datetime] = None,
-        search_term: Optional[str] = None
+        search_term: Optional[str] = None,
     ) -> List[Task]:
         """Advanced filtering with multiple criteria."""
         query = self.db.query(Task)
-        
+
         if status:
             query = query.filter(Task.status == status.value)
         if priority:
@@ -164,8 +163,8 @@ class TaskServices:
             query = query.filter(
                 or_(
                     Task.title.ilike(search_pattern),
-                    Task.description.ilike(search_pattern)
+                    Task.description.ilike(search_pattern),
                 )
             )
-            
+
         return query.all()

@@ -1,7 +1,8 @@
-import pytest
 from datetime import datetime, timedelta
-from fastapi import status
 from urllib.parse import quote
+
+import pytest
+from fastapi import status
 
 
 class TestTaskFilters:
@@ -18,7 +19,7 @@ class TestTaskFilters:
                 "status": "pending",
                 "priority": "high",
                 "assigned_to": "João Silva",
-                "due_date": (datetime.now() + timedelta(days=1)).isoformat()
+                "due_date": (datetime.now() + timedelta(days=1)).isoformat(),
             },
             {
                 "title": "Tarefa em progresso",
@@ -26,7 +27,7 @@ class TestTaskFilters:
                 "status": "in_progress",
                 "priority": "medium",
                 "assigned_to": "Maria Santos",
-                "due_date": (datetime.now() + timedelta(days=5)).isoformat()
+                "due_date": (datetime.now() + timedelta(days=5)).isoformat(),
             },
             {
                 "title": "Tarefa concluída",
@@ -34,7 +35,7 @@ class TestTaskFilters:
                 "status": "completed",
                 "priority": "high",
                 "assigned_to": "João Silva",
-                "due_date": (datetime.now() - timedelta(days=2)).isoformat()
+                "due_date": (datetime.now() - timedelta(days=2)).isoformat(),
             },
             {
                 "title": "Tarefa atrasada",
@@ -42,7 +43,7 @@ class TestTaskFilters:
                 "status": "pending",
                 "priority": "low",
                 "assigned_to": "Ana Costa",
-                "due_date": (datetime.now() - timedelta(days=3)).isoformat()
+                "due_date": (datetime.now() - timedelta(days=3)).isoformat(),
             },
             {
                 "title": "Tarefa para hoje",
@@ -50,10 +51,10 @@ class TestTaskFilters:
                 "status": "in_progress",
                 "priority": "medium",
                 "assigned_to": "Maria Santos",
-                "due_date": datetime.now().isoformat()
-            }
+                "due_date": datetime.now().isoformat(),
+            },
         ]
-        
+
         # Criar as tarefas no banco de teste
         self.created_task_ids = []
         for task_data in self.test_tasks:
@@ -64,10 +65,10 @@ class TestTaskFilters:
         """Testa filtro por status 'pending'."""
         response = client.get("/tasks/filter/status/pending")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 2  # 2 tarefas pending
-        
+
         for task in tasks:
             assert task["status"] == "pending"
 
@@ -75,10 +76,10 @@ class TestTaskFilters:
         """Testa filtro por status 'in_progress'."""
         response = client.get("/tasks/filter/status/in_progress")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 2  # 2 tarefas in_progress
-        
+
         for task in tasks:
             assert task["status"] == "in_progress"
 
@@ -86,10 +87,10 @@ class TestTaskFilters:
         """Testa filtro por status 'completed'."""
         response = client.get("/tasks/filter/status/completed")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 1  # 1 tarefa completed
-        
+
         for task in tasks:
             assert task["status"] == "completed"
 
@@ -102,10 +103,10 @@ class TestTaskFilters:
         """Testa filtro por prioridade 'high'."""
         response = client.get("/tasks/filter/priority/high")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 2  # 2 tarefas high priority
-        
+
         for task in tasks:
             assert task["priority"] == "high"
 
@@ -113,10 +114,10 @@ class TestTaskFilters:
         """Testa filtro por prioridade 'medium'."""
         response = client.get("/tasks/filter/priority/medium")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 2  # 2 tarefas medium priority
-        
+
         for task in tasks:
             assert task["priority"] == "medium"
 
@@ -124,10 +125,10 @@ class TestTaskFilters:
         """Testa filtro por prioridade 'low'."""
         response = client.get("/tasks/filter/priority/low")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 1  # 1 tarefa low priority
-        
+
         for task in tasks:
             assert task["priority"] == "low"
 
@@ -135,10 +136,10 @@ class TestTaskFilters:
         """Testa filtro por pessoa responsável."""
         response = client.get("/tasks/filter/assigned/João Silva")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 2  # 2 tarefas do João Silva
-        
+
         for task in tasks:
             assert task["assigned_to"] == "João Silva"
 
@@ -146,10 +147,10 @@ class TestTaskFilters:
         """Testa filtro por pessoa com nome que tem espaços."""
         response = client.get("/tasks/filter/assigned/Maria Santos")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 2  # 2 tarefas da Maria Santos
-        
+
         for task in tasks:
             assert task["assigned_to"] == "Maria Santos"
 
@@ -157,7 +158,7 @@ class TestTaskFilters:
         """Testa filtro por pessoa que não existe."""
         response = client.get("/tasks/filter/assigned/Pessoa Inexistente")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 0
 
@@ -165,10 +166,10 @@ class TestTaskFilters:
         """Testa busca de tarefas atrasadas."""
         response = client.get("/tasks/overdue")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 1  # 1 tarefa atrasada (pending + data passada)
-        
+
         overdue_task = tasks[0]
         assert overdue_task["title"] == "Tarefa atrasada"
         assert overdue_task["status"] != "completed"
@@ -177,7 +178,7 @@ class TestTaskFilters:
         """Testa busca de tarefas que vencem em breve (padrão 7 dias)."""
         response = client.get("/tasks/due-soon")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         # Deve retornar tarefas que vencem em 1 dia, 5 dias e hoje
         # mas não a atrasada nem a concluída
@@ -187,7 +188,7 @@ class TestTaskFilters:
         """Testa busca de tarefas que vencem em breve com período customizado."""
         response = client.get("/tasks/due-soon?days=2")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         # Deve retornar tarefas que vencem em 1 dia e hoje
         assert len(tasks) >= 1
@@ -196,10 +197,10 @@ class TestTaskFilters:
         """Testa busca de tarefas que vencem hoje."""
         response = client.get("/tasks/due-today")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 1  # 1 tarefa para hoje
-        
+
         today_task = tasks[0]
         assert today_task["title"] == "Tarefa para hoje"
 
@@ -207,7 +208,7 @@ class TestTaskFilters:
         """Testa busca por texto no título."""
         response = client.get("/tasks/search?q=urgente")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 1
         assert "urgente" in tasks[0]["title"].lower()
@@ -216,7 +217,7 @@ class TestTaskFilters:
         """Testa busca por texto na descrição."""
         response = client.get("/tasks/search?q=API")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 1
         assert "API" in tasks[0]["description"]
@@ -225,7 +226,7 @@ class TestTaskFilters:
         """Testa busca case-insensitive."""
         response = client.get("/tasks/search?q=IMPLEMENTAR")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 1
         assert "implementar" in tasks[0]["description"].lower()
@@ -234,7 +235,7 @@ class TestTaskFilters:
         """Testa busca que não retorna resultados."""
         response = client.get("/tasks/search?q=inexistente")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 0
 
@@ -247,10 +248,10 @@ class TestTaskFilters:
         """Testa filtro avançado com um único critério."""
         response = client.get("/tasks/filter?status=pending")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 2
-        
+
         for task in tasks:
             assert task["status"] == "pending"
 
@@ -258,10 +259,10 @@ class TestTaskFilters:
         """Testa filtro avançado com múltiplos critérios."""
         response = client.get("/tasks/filter?status=pending&priority=high")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 1
-        
+
         task = tasks[0]
         assert task["status"] == "pending"
         assert task["priority"] == "high"
@@ -270,10 +271,10 @@ class TestTaskFilters:
         """Testa filtro avançado combinado com busca textual."""
         response = client.get("/tasks/filter?status=in_progress&search=API")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 1
-        
+
         task = tasks[0]
         assert task["status"] == "in_progress"
         assert "API" in task["description"]
@@ -282,10 +283,10 @@ class TestTaskFilters:
         """Testa filtro avançado por pessoa responsável."""
         response = client.get("/tasks/filter?assigned_to=João Silva&priority=high")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 2
-        
+
         for task in tasks:
             assert task["assigned_to"] == "João Silva"
             assert task["priority"] == "high"
@@ -294,7 +295,7 @@ class TestTaskFilters:
         """Testa filtro avançado que não retorna resultados."""
         response = client.get("/tasks/filter?status=completed&priority=low")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 0
 
@@ -302,7 +303,7 @@ class TestTaskFilters:
         """Testa filtro avançado sem critérios (deve retornar todas)."""
         response = client.get("/tasks/filter")
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) == 5  # todas as tarefas de teste
 
@@ -310,13 +311,15 @@ class TestTaskFilters:
         """Testa filtro por intervalo de datas."""
         start_datetime = datetime.now() - timedelta(days=1)
         end_datetime = datetime.now() + timedelta(days=3)
-        
+
         # Formato ISO com URL encoding
         start_date = quote(start_datetime.isoformat())
         end_date = quote(end_datetime.isoformat())
-        
-        response = client.get(f"/tasks/filter?start_date={start_date}&end_date={end_date}")
+
+        response = client.get(
+            f"/tasks/filter?start_date={start_date}&end_date={end_date}"
+        )
         assert response.status_code == status.HTTP_200_OK
-        
+
         tasks = response.json()
         assert len(tasks) >= 2
