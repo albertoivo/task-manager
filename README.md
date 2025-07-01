@@ -346,7 +346,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Support
 
 If you have any questions or issues, please:
-- Check the [Issues](https://github.com/yourusername/task-manager/issues) page
+- Check the [Issues](https://github.com/albertoivo/task-manager/issues) page
 - Create a new issue if your problem isn't already reported
 - Provide detailed information about your environment and the issue
 
