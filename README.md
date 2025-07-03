@@ -79,7 +79,7 @@ Whether you're learning modern Python web development or need a starting point f
 
 #### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/task-manager.git
+git clone https://github.com/albertoivo/task-manager.git
 cd task-manager
 ```
 
